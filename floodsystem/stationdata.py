@@ -6,8 +6,8 @@ JSON objects fetched from the Internet and
 
 """
 
-import datafetcher
-from station import MonitoringStation
+from . import datafetcher
+from .station import MonitoringStation
 
 
 def build_station_list(use_cache=True):
