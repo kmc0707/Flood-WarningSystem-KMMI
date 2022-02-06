@@ -39,16 +39,7 @@ def rivers_by_station_number(stations, N):
     ''' returns a list of N rivers with the greatest number of monitoring stations '''
 
 
-    #stations_by_river_dict = stations_by_river(stations)
-
-    stations_by_river_dict = {
-        "river a" : ["station", "station"],
-        "river b" : ["station", "station", "station", "station"],
-        "river c" : ["station", "station", "station"],
-        "river d" : ["station", "station", "station", "station"],
-        "river e" : ["station", "station", "station"],
-        "river f" : ["station", "station"],
-    }    # for testing while stations_by_river_dict not implemented
+    stations_by_river_dict = stations_by_river(stations)
 
     river_station_number = [] # A list of tuples in the form (river name, number of stations associated with that river)
 
@@ -70,7 +61,7 @@ def rivers_by_station_number(stations, N):
         # add all rivers with 'greatest' number of rivers to the list
         for i in river_station_number:
             if i[1] == greatest:
-                rivers.append(i[0])
+                rivers.append(i)
         greatest -= 1
 
     return rivers
