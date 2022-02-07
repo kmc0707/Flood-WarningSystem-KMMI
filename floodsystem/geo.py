@@ -6,13 +6,23 @@ geographical data.
 
 """
 
+from turtle import distance
 from .utils import sorted_by_key  # noqa
-
+from haversine import haversine, Unit
 
 def stations_by_distance(stations, p):
     ''' docstring '''
-    # Kyle todo
-    return [("test1", 5), ("test2", 15)]  # for testing, remove after function implementation
+    station_and_distances = []
+    for station in stations:
+        coordinate = station.coord
+        distance = haversine(p ,coordinate)
+        station_and_distances.append((station, distance))
+    station_and_distances.sort(key=sorting_distances)
+    return station_and_distances  # for testing, remove after function implementation
+
+def sorting_distances(station):
+    distance = station[1]
+    return distance
 
 
 def stations_within_radius(stations, centre, r):
