@@ -42,14 +42,38 @@ def stations_within_radius(stations, centre, r):
 
 
 def rivers_with_station(stations) -> set:
-    ''' returns a list of rivers which have at least one monitoring station '''
-    pass  # TODO Kyle
+    DuplicateRivers = []
+    for station in stations:
+        DuplicateRivers.append(station.river)
+    Rivers = set(DuplicateRivers)
+    return Rivers
+
 
 
 def stations_by_river(stations) -> dict:
-    ''' returns stations organised by river in the form {river: ["station", "station"]}'''
-    pass  # TODO Kyle
+    riverDictionary = {}
+    station_and_river = []
+    for station in stations:
+        station_and_river.append((station.name,station.river))
+    station_and_river.sort(key=sorting_rivers)
+    empty = []
+    current = ""
+    for data in station_and_river:
+        if current == data[1]:
+            empty.append(data[0])
+        else:
+            empty.sort()
+            riverDictionary[current] = empty
+            empty = [data[0]]
+            current = data[1]
+    empty.sort()
+    riverDictionary[current] = empty
+    return riverDictionary
+        
 
+def sorting_rivers(station):
+    river = station[1]
+    return river
 
 def rivers_by_station_number(stations, N):
     ''' returns a list of N rivers with the greatest number of monitoring stations '''
