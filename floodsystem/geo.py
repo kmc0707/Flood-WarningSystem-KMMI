@@ -10,15 +10,17 @@ from turtle import distance
 from .utils import sorted_by_key  # noqa
 from haversine import haversine, Unit
 
+
 def stations_by_distance(stations, p):
     ''' docstring '''
     station_and_distances = []
     for station in stations:
         coordinate = station.coord
-        distance = haversine(p ,coordinate)
+        distance = haversine(p, coordinate)
         station_and_distances.append((station, distance))
     station_and_distances.sort(key=sorting_distances)
     return station_and_distances  # for testing, remove after function implementation
+
 
 def sorting_distances(station):
     distance = station[1]
@@ -32,7 +34,11 @@ def stations_within_radius(stations, centre, r):
     stations_ordered = stations_by_distance(stations, centre)
 
     # Return a list of station names where their distance is < r
-    return [i[0] if i[1] <= r else None for i in stations_ordered]
+    near_stations = []
+    for i in stations_ordered:
+        if i[1] <= r:
+            near_stations.append(i[0])
+    return near_stations
 
 
 def rivers_with_station(stations) -> set:
@@ -48,23 +54,23 @@ def stations_by_river(stations) -> dict:
 def rivers_by_station_number(stations, N):
     ''' returns a list of N rivers with the greatest number of monitoring stations '''
 
-
     stations_by_river_dict = stations_by_river(stations)
 
-    river_station_number = [] # A list of tuples in the form (river name, number of stations associated with that river)
+    # A list of tuples in the form (river name, number of stations associated with that river)
+    river_station_number = []
 
     # create river_station_number
     for i in stations_by_river_dict:
         river_station_number.append((i, len(stations_by_river_dict[i])))
 
-    greatest = 0 # greatest number of stations
+    greatest = 0  # greatest number of stations
 
     # find greatest number of stations
     for i in river_station_number:
         if i[1] > greatest:
             greatest = i[1]
-    
-    rivers = [] # rivers to be returned
+
+    rivers = []  # rivers to be returned
 
     while len(rivers) < N:
 
