@@ -12,7 +12,7 @@ from haversine import haversine, Unit
 
 
 def stations_by_distance(stations, p):
-    ''' docstring '''
+    ''' returns distance from a co-ordinate from stations'''
     station_and_distances = []
     for station in stations:
         coordinate = station.coord
@@ -42,6 +42,7 @@ def stations_within_radius(stations, centre, r):
 
 
 def rivers_with_station(stations) -> set:
+    """returns a set of rivers"""
     DuplicateRivers = []
     for station in stations:
         DuplicateRivers.append(station.river)
@@ -51,6 +52,7 @@ def rivers_with_station(stations) -> set:
 
 
 def stations_by_river(stations) -> dict:
+    """returns a dictionary of stations and rivers with rivers as the key"""
     riverDictionary = {}
     station_and_river = []
     for station in stations:
@@ -72,6 +74,7 @@ def stations_by_river(stations) -> dict:
         
 
 def sorting_rivers(station):
+    """sorting function for stations_by_rivers"""
     river = station[1]
     return river
 
