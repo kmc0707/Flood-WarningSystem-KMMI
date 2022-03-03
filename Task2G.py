@@ -18,10 +18,16 @@ def run():
             levels = None
         days = 1
         if levels:
-            if levels[9] > levels[8]:
-                for i in range (7):
-                    if levels[8-i] > levels[8-i-1]:
+            points = len(levels) - 1
+            seconds_in_day = 24 * 60 * 60
+            if levels[points] > levels[points-1]:
+                for i in range (points - 2):
+                    if levels[points-i] > levels[points-i-1]:
                         days = days+1
+                x = dates[points] - dates[points-days]
+                duration_in_s = x.total_seconds()
+                days = int(duration_in_s / seconds_in_day)
+                
                 if days > 2 and days < 4:
                     severity = severity + 1
                 if days >= 4 and days < 7:
@@ -29,9 +35,9 @@ def run():
                 if days >= 7:
                     severity = severity + 3
             
-            if levels[9] < levels[8]:
-                for i in range (7):
-                    if levels[8-i] < levels[8-i-1]:
+            if levels[points] > levels[points-1]:
+                for i in range (points - 2):
+                    if levels[points - i] < levels[points-i-1]:
                         days = days+1
                 if days > 2 and days < 4:
                     severity = severity - 1
