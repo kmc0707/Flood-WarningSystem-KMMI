@@ -1,6 +1,7 @@
 from floodsystem.stationdata import build_station_list, update_water_levels
 from floodsystem.flood import stations_highest_rel_level
-from floodsystem.analysis import polyfit
+#from floodsystem.analysis import polyfit
+from floodsystem.plot import plot_water_level_with_fit
 from floodsystem.datafetcher import fetch_measure_levels
 import datetime
 
@@ -10,8 +11,10 @@ def run():
     update_water_levels(stations)
 
     flooded_stations = stations_highest_rel_level(stations, 2)
-    dates, levels = fetch_measure_levels(flooded_stations[1].measure_id, dt=datetime.timedelta(days=2))
-    poly = polyfit(dates, levels, 4)
+    dates, levels = fetch_measure_levels(flooded_stations[1].measure_id, dt=datetime.timedelta(days=10))
+    #poly = polyfit(dates, levels, 4)
+
+    plot_water_level_with_fit(flooded_stations[1], dates, levels, 4)
 
 
 if __name__ == "__main__":
