@@ -5,11 +5,9 @@ from floodsystem.datafetcher import fetch_measure_levels
 
 
 def sorts(station):
-    if not station.latest_level:
+    if not station.relative_water_level():
         return 0.0
-    if station.latest_level > 100:
-        return 0.0
-    return station.latest_level
+    return station.relative_water_level()
 
 
 def run():
