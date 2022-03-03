@@ -1,3 +1,4 @@
+from floodsystem.geo import plot_water_levels
 import datetime
 from floodsystem.stationdata import build_station_list, update_water_levels
 from floodsystem.geo import plot_water_levels
@@ -12,7 +13,7 @@ def sorts(station):
     return station.latest_level
 
 
-def run():
+def test_station_plotting():
     stations = build_station_list()
     update_water_levels(stations)
     stations.sort(key=sorts, reverse=True)
@@ -22,11 +23,9 @@ def run():
         dates, levels = fetch_measure_levels(
         station.measure_id, dt=datetime.timedelta(days=dt))
         if dates:
-            plot_water_levels(station, dates, levels)
+            assert plot_water_levels(station, dates, levels) == None
             count = count + 1
-        if count == 5:
+        if count == 1:
+            assert dates != None
+            assert levels != None
             break
-
-if __name__ == "__main__":
-    print("*** Task 2E: CUED Part IA Flood Warning System ***")
-    run()
