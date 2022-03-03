@@ -10,11 +10,12 @@ def run():
     stations = build_station_list()
     update_water_levels(stations)
 
-    flooded_stations = stations_highest_rel_level(stations, 2)
-    dates, levels = fetch_measure_levels(flooded_stations[1].measure_id, dt=datetime.timedelta(days=10))
-    #poly = polyfit(dates, levels, 4)
+    flooded_stations = stations_highest_rel_level(stations, 6)
+    for i in flooded_stations[1:]: #Ignore first station as it is an 'error' station (the data is bad :( )
+        dates, levels = fetch_measure_levels(i.measure_id, dt=datetime.timedelta(days=2))
+        #poly = polyfit(dates, levels, 4)
 
-    plot_water_level_with_fit(flooded_stations[1], dates, levels, 4)
+        plot_water_level_with_fit(i, dates, levels, 4)
 
 
 if __name__ == "__main__":

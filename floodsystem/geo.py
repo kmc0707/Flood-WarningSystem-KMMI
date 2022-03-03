@@ -126,5 +126,5 @@ def plot_water_levels(station, dates, levels, show=True):
 
     if show:
         plt.show()
-
-    return plt
+    else:
+        return plt
