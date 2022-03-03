@@ -6,10 +6,11 @@ geographical data.
 
 """
 
-from turtle import distance
+from cProfile import label
+from turtle import color, distance
 from .utils import sorted_by_key  # noqa
 from haversine import haversine, Unit
-
+import matplotlib.pyplot as plt
 
 def stations_by_distance(stations, p):
     ''' returns distance from a co-ordinate from stations'''
@@ -108,3 +109,18 @@ def rivers_by_station_number(stations, N):
         greatest -= 1
 
     return rivers
+
+#plots water levels for a station
+def plot_water_levels(station, dates, levels):
+    # Plot
+    plt.plot(dates, levels, label='water data level')
+    plt.xlabel('date')
+    plt.ylabel('water level (m)')
+    plt.xticks(rotation=45);
+    plt.title(station.name)
+    plt.tight_layout()  # This makes sure plot does not cut off date labels
+    if station.typical_range_consistent():
+        plt.axhline(y=station.typical_range[1], label="high", color = 'r',linestyle='-')
+        plt.axhline(y=station.typical_range[0], label ="low", color = 'y',linestyle='-')
+    plt.legend()
+    plt.show()
