@@ -111,7 +111,7 @@ def rivers_by_station_number(stations, N):
     return rivers
 
 #plots water levels for a station
-def plot_water_levels(station, dates, levels):
+def plot_water_levels(station, dates, levels, show=True):
     # Plot
     plt.plot(dates, levels, label='water data level')
     plt.xlabel('date')
@@ -123,4 +123,8 @@ def plot_water_levels(station, dates, levels):
         plt.axhline(y=station.typical_range[1], label="high", color = 'r',linestyle='-')
         plt.axhline(y=station.typical_range[0], label ="low", color = 'y',linestyle='-')
     plt.legend()
-    plt.show()
+
+    if show:
+        plt.show()
+    else:
+        return plt
